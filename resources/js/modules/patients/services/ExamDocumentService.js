@@ -9,4 +9,13 @@ export const ExamDocumentService = {
 
         return data;
     },
+
+    async downloadContent(patientId, examId, documentId) {
+        const { data } = await api.get(
+            `/patients/${patientId}/exams/${examId}/documents/${documentId}/download`,
+            { responseType: 'blob' },
+        );
+
+        return data;
+    },
 };

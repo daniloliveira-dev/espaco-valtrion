@@ -21,6 +21,11 @@ Route::middleware('web')->group(function (): void {
             ->whereNumber('exam')
             ->whereNumber('document')
             ->name('documents.content');
+        Route::get('/{patient}/exams/{exam}/documents/{document}/download', [ExamDocumentController::class, 'download'])
+            ->whereNumber('patient')
+            ->whereNumber('exam')
+            ->whereNumber('document')
+            ->name('documents.download');
         Route::get('/{patient}', [PatientController::class, 'show'])->whereNumber('patient')->name('show');
     });
 });

@@ -18,8 +18,8 @@ function reload() {
 
 <style scoped>
 .unavailable { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; }
-.eyebrow { margin: 20px 0 6px; color: #275bd2; font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
-h1 { margin: 0; color: #17243b; font-size: 26px; }
-.description { max-width: 430px; margin: 12px 0 22px; color: #758198; font-size: 14px; line-height: 1.6; }
+.eyebrow { margin: 20px 0 6px; color: #275bd2; font-size: 14px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+h1 { margin: 0; color: #17243b; font-size: 27px; }
+.description { max-width: 430px; margin: 12px 0 22px; color: #758198; font-size: 16px; line-height: 1.6; }
 .primary-button { width: auto; padding: 0 24px; }
 </style>

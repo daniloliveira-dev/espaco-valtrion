@@ -29,6 +29,19 @@ class ExamDocumentsTest extends TestCase
             ->assertHeader('X-Content-Type-Options', 'nosniff');
     }
 
+    public function test_authenticated_users_can_download_an_exam_document_for_its_patient(): void
+    {
+        Storage::fake('local');
+        [$patient, $exam, $document] = $this->createDocumentFixture();
+
+        Storage::disk('local')->put($document->storage_path, 'Documento de teste.');
+
+        $this->actingAs(User::factory()->create())
+            ->get($this->downloadUrl($patient, $exam, $document))
+            ->assertDownload($document->original_file_name)
+            ->assertHeader('X-Content-Type-Options', 'nosniff');
+    }
+
     public function test_document_route_does_not_allow_a_different_patient_to_access_an_exam_file(): void
     {
         Storage::fake('local');
@@ -42,6 +55,10 @@ class ExamDocumentsTest extends TestCase
         $this->actingAs(User::factory()->create())
             ->get($this->contentUrl($otherPatient, $exam, $document))
             ->assertNotFound();
+
+        $this->actingAs(User::factory()->create())
+            ->get($this->downloadUrl($otherPatient, $exam, $document))
+            ->assertNotFound();
     }
 
     public function test_guests_cannot_view_exam_documents(): void
@@ -49,6 +66,7 @@ class ExamDocumentsTest extends TestCase
         [$patient, $exam, $document] = $this->createDocumentFixture();
 
         $this->get($this->contentUrl($patient, $exam, $document))->assertUnauthorized();
+        $this->get($this->downloadUrl($patient, $exam, $document))->assertUnauthorized();
     }
 
     /**
@@ -93,5 +111,10 @@ class ExamDocumentsTest extends TestCase
     private function contentUrl(Patient $patient, Exam $exam, ExamDocument $document): string
     {
         return "/api/patients/{$patient->id}/exams/{$exam->id}/documents/{$document->id}/content";
+    }
+
+    private function downloadUrl(Patient $patient, Exam $exam, ExamDocument $document): string
+    {
+        return "/api/patients/{$patient->id}/exams/{$exam->id}/documents/{$document->id}/download";
     }
 }

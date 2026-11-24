@@ -37,6 +37,7 @@ Os comandos também estão disponíveis pelos scripts Composer: `composer setup`
 - **Dashboard:** totais de pacientes e exames, exames pendentes, exames concluídos no mês e lista dos 8 exames recentes, carregados do MySQL pela API autenticada.
 - **Pacientes:** busca e filtros por nome, exame e data da consulta; prontuário com informações do paciente, médico, consultas, exames, resultados e documentos anexados.
 - **Perfil:** visualização do nome e do e-mail da conta pelo menu das iniciais no cabeçalho.
+- **Tema:** alternância entre modo claro e escuro pelo menu do perfil, com preferência salva no navegador.
 - **Logout:** encerra a sessão, invalida os dados de sessão e renova o token CSRF.
 - **Interface:** Vue 3, Vue Router, Pinia, Axios e VeeValidate; layouts responsivos em português.
 
@@ -94,6 +95,7 @@ resources/js/
 - `GET /api/patients?name=&exam=&date=&page=`: busca paginada de pacientes, exige autenticação.
 - `GET /api/patients/{id}`: dados cadastrais, médico responsável e histórico de consultas/exames com resumo do resultado, exige autenticação.
 - `GET /api/patients/{patient}/exams/{exam}/documents/{document}/content`: visualiza em fluxo privado um documento vinculado ao exame e paciente, exige autenticação.
+- `GET /api/patients/{patient}/exams/{exam}/documents/{document}/download`: baixa como anexo um documento vinculado ao exame e paciente, exige autenticação.
 
 A API aplica os filtros no banco MySQL. O filtro `date` corresponde à data da consulta e pode ser combinado com `name` e `exam`.
 

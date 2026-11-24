@@ -36,6 +36,8 @@ import PatientResults from '../components/PatientResults.vue';
 import PatientSearchForm from '../components/PatientSearchForm.vue';
 import { usePatientSearch } from '../composables/usePatientSearch';
 
+defineOptions({ name: 'PatientsPage' });
+
 const {
     filters,
     result,
@@ -53,6 +55,19 @@ onMounted(() => loadPatients());
 
 <style scoped>
 .patients-page { max-width: 1440px; }
-.patient-error { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 16px; border: 1px solid #f1d4d5; border-radius: 9px; color: #9c3d44; background: #fff7f7; font-size: 12px; }
-.patient-error button { border: 0; color: #2857d2; background: transparent; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.patients-page > .welcome-line { animation: patients-enter 440ms cubic-bezier(.2, .75, .25, 1) both; }
+.patient-error { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 15px 17px; border: 1px solid #f1d4d5; border-radius: 12px; color: #9c3d44; background: #fff7f7; box-shadow: 0 5px 16px rgb(130 48 57 / 5%); font-size: 14px; animation: patients-enter 360ms ease both; }
+.patient-error button { border: 0; border-radius: 7px; padding: 8px 10px; color: #2857d2; background: transparent; font-size: 13px; font-weight: 700; white-space: nowrap; transition: background-color 160ms ease, color 160ms ease; }
+.patient-error button:hover { color: #2148e8; background: #edf2ff; }
+
+@keyframes patients-enter {
+    from { opacity: 0; transform: translateY(9px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .patients-page > .welcome-line,
+    .patient-error { animation: none; }
+    .patient-error button { transition: none; }
+}
 </style>
