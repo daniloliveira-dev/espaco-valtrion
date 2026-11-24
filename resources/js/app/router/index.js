@@ -4,6 +4,9 @@ import AdminLayout from '../../layouts/AdminLayout.vue';
 import LoginPage from '../../modules/auth/pages/LoginPage.vue';
 import RegisterPage from '../../modules/auth/pages/RegisterPage.vue';
 import DashboardPage from '../../modules/dashboard/pages/DashboardPage.vue';
+import ProfilePage from '../../modules/users/pages/ProfilePage.vue';
+import PatientsPage from '../../modules/patients/pages/PatientsPage.vue';
+import PatientDetailsPage from '../../modules/patients/pages/PatientDetailsPage.vue';
 import ServiceUnavailablePage from '../../shared/pages/ServiceUnavailablePage.vue';
 import { useAuthStore } from '../../modules/auth/stores/authStore';
 
@@ -24,7 +27,22 @@ const routes = [
         path: '/dashboard',
         component: AdminLayout,
         children: [
-            { path: '', name: 'dashboard', component: DashboardPage, meta: { requiresAuth: true } },
+            { path: '', name: 'dashboard', component: DashboardPage, meta: { requiresAuth: true, title: 'Visão geral' } },
+        ],
+    },
+    {
+        path: '/perfil',
+        component: AdminLayout,
+        children: [
+            { path: '', name: 'profile', component: ProfilePage, meta: { requiresAuth: true, title: 'Perfil' } },
+        ],
+    },
+    {
+        path: '/pacientes',
+        component: AdminLayout,
+        children: [
+            { path: '', name: 'patients', component: PatientsPage, meta: { requiresAuth: true, title: 'Pacientes' } },
+            { path: ':id', name: 'patient-details', component: PatientDetailsPage, meta: { requiresAuth: true, title: 'Paciente' } },
         ],
     },
     {
